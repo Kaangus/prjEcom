@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-5">
+        <img src="{{ product.image.url }}" alt="img_fluid" width="500" height="400">
+        {{ product.title }}
+    </div>
+</div>
+
+{% endblock content %}
