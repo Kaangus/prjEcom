@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class loginform(forms.Form):
+class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
-    class meta:
+    class Meta:
         model = User
         fields = ['username', 'password']
 
@@ -18,20 +18,20 @@ class loginform(forms.Form):
     def clean(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
-        user = user.objects.filter(username=username).first()
+        user = User.objects.filter(username=username).first()
         if not user:
             raise forms.ValidationError(f"incorrect username, can't found")
         if not user.check_password(password):
             raise forms.ValidationError(f"incorrect password")
         return self.cleaned_data
 
-class registrationform(forms.Form):
-    username = forms.CharField(required=true)
+class RegistrationForm(forms.Form):
+    username = forms.CharField(required=True)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     password = forms.CharField(widget=forms.PasswordInput)
-    email = forms.EmailField(required=true)
-    first_name = forms.CharField(required=true)
-    last_name = forms.CharField(required=true)
+    email = forms.EmailField(required=True)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
 
     def __init__(self, *args, **kwargs):
         super.__init__(*args, **kwargs)

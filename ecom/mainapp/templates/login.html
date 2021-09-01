@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content1 %}
+
+<div class="row" style="margin-bottom: 200px; margin-top: 160px;">
+    <div class="col-md-6 offset-md-3">
+        <h3 class="text-center">Login</h3>
+        <hr>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf token %}
+            {{ form }}
+            <input type="submit" class="btn btn-success btn-block" value="Enter">
+        </form>
+    </div>
+</div>
+
+{% endblock content1 %}
