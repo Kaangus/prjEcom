@@ -1,5 +1,5 @@
 Here I'm sharing my first e-commerce project, currently I'm working on.
-![322](https://user-images.githubusercontent.com/61624548/118358980-ddb97d00-b589-11eb-8639-564ca73640f3.png)
+![322]![tes](https://user-images.githubusercontent.com/61624548/132409160-202f99ee-76a9-4001-8c0c-9ce0f6392083.gif)
 
 list-to-add:
  1. User account registration 🧑‍🤝‍🧑
