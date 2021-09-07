@@ -3,7 +3,8 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class LoginForm(forms.Form):
+class LoginForm(forms.ModelForm):
+    username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
@@ -11,7 +12,7 @@ class LoginForm(forms.Form):
         fields = ['username', 'password']
 
     def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['username'].label = 'login'
         self.fields['password'].password = 'password'
 
@@ -25,16 +26,16 @@ class LoginForm(forms.Form):
             raise forms.ValidationError(f"incorrect password")
         return self.cleaned_data
 
-class RegistrationForm(forms.Form):
+class RegistrationForm(forms.ModelForm):
     username = forms.CharField(required=True)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
     password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True)
     last_name = forms.CharField(required=True)
 
     def __init__(self, *args, **kwargs):
-        super.__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['username'].label = 'login'
         self.fields['password'].label = 'password'
         self.fields['confirm_password'].label = 'password confirmation'

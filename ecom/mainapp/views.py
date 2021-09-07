@@ -2,16 +2,17 @@ from django.shortcuts import render
 from django.views.generic import DetailView
 from django import views
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponseRedirect, request
+from django.http import HttpResponseRedirect
 
 from .models import *
 from .forms import LoginForm, RegistrationForm
 
+
 def base(request):
     return render(request, 'base.html', {})
 
-class ProductPageView(DetailView):
 
+class ProductPageView(DetailView):
     CT_MODEL_CLASS = {
         'susi': Susi,
         'pizza': Pizza
@@ -26,16 +27,17 @@ class ProductPageView(DetailView):
     template_name = 'product_page.html'
     slug_url_kwarg = 'slug'
 
+
 class LoginView(views.View):
 
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
         context = {
             'form': form
         }
         return render(request, 'login.html', context)
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST or None)
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -49,16 +51,17 @@ class LoginView(views.View):
         }
         return render(request, 'registration.html', context)
 
+
 class RegistrationView(views.View):
 
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
         context = {
             'form': form
         }
         return render(request, 'registration.html', context)
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         form = RegistrationForm(request.POST or None)
         if form.is_valid():
             new_user = form.save(commit=False)
@@ -70,9 +73,7 @@ class RegistrationView(views.View):
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
             Customer.objects.create(
-                user = new_user,
-                phone = form.cleaned_data['phone'],
-                addres = form.cleaned_data['addres']
+                user=new_user
             )
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
             login(request, user)
